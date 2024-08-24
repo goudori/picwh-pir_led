@@ -1,0 +1,24 @@
+from machine import Pin  # type: ignore
+import utime  # type: ignore
+
+# LEDのピン配置
+led = Pin(15, Pin.OUT)
+
+# PIRセンサーのピン配置
+pir_senser = Pin(16, Pin.IN)
+
+while True:
+    # PIRセンサーの検知状態を取得
+    pir_senser_state = pir_senser.value()
+
+    if pir_senser_state == 1:
+        # センサーが反応した場合、LEDをON
+        led.value(1)
+        print("Motion detected!")
+    else:
+        # センサーが反応しない場合、LEDをOFF
+        led.value(0)
+        print("No motion detected.")
+
+    # ここで遅延を実行
+    utime.sleep_ms(500)
